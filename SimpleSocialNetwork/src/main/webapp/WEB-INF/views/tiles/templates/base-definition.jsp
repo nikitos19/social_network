@@ -7,7 +7,7 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Site</title>
+    <title>Social network</title>
     <!--<frameset cols="200,300">
         <frame src="index1.html" name = "Foto" scroll="none">
         <frame src="index2.html" name = "Foto" scroll="none">
@@ -64,7 +64,7 @@
 </head>
 <body>
 <div id="container">
-    <div id="header">My site</div>
+    <div id="header">Social network</div>
     <hr/>
     <div id="sidebar">
         <p><a href="">My page</a></p>

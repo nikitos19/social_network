@@ -19,11 +19,6 @@ public class TestController {
         return "Hello world hey hey!";
     }
 
-    @RequestMapping(value = "homePage", method = RequestMethod.GET)
-    public ModelAndView homePage() {
-        ModelAndView result = new ModelAndView("home");
-        result.addObject("name","my name");
-        return result;
-    }
+
 
 }
