@@ -4,20 +4,33 @@
 
 <tiles-definitions>
 
+    <!-- Registration-->
+    <definition name="registration"
+                template="/WEB-INF/views/tiles/templates/registration.jsp">
+        <put-attribute name="content" value=""/>
+    </definition>
+
     <!-- Entry -->
     <definition name="entry"
-                template="/WEB-INF/views/tiles/templates/entry.jsp"><!--base-defenition-->
+                template="/WEB-INF/views/tiles/templates/entry.jsp">
+        <put-attribute name="content" value=""/>
+    </definition>
+
+    <definition name="entry1"
+                template="/WEB-INF/views/tiles/templates/entry.jsp">
         <put-attribute name="content" value=""/>
     </definition>
 
     <!-- Base Definition -->
-    <definition name="base-definition" extends="entry">
-        <put-attribute name="content" value="/WEB-INF/views/tiles/templates/base-definition.jsp"/>
+    <definition name="base-definition"
+        template="/WEB-INF/views/tiles/templates/base-definition.jsp"><!--base-defenition-->
+        <put-attribute name="content" value=""/>
     </definition>
 
     <!-- Home Page -->
     <definition name="home" extends="base-definition">
         <put-attribute name="content" value="/WEB-INF/views/tiles/templates/home.jsp"/>
     </definition>
+
 
 </tiles-definitions>

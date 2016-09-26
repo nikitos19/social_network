@@ -1,12 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!doctype html>
 
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Entry</title>
+    <title>Registration</title>
 
     <link rel="stylesheet"
           href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -16,8 +18,8 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 
-    <script type="text/javascript"
-            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!--<script type="text/javascript"
+            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>-->
 
     <script
             src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -31,7 +33,6 @@
         .form-signin .form-signin-heading,.form-signin  {
             margin-bottom: 10px;
         }
-
         .form-signin .form-control {
             position: relative;
             height: auto;
@@ -44,17 +45,22 @@
         .form-signin .form-control:focus {
             z-index: 2;
         }
+        .form-signin input[type="name"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
         .form-signin input[type="email"] {
             margin-bottom: -1px;
             border-bottom-right-radius: 0;
             border-bottom-left-radius: 0;
         }
         .form-signin input[type="password"] {
-            margin-bottom: 10px;
+            margin-bottom: -1px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
-        a:link, a:visited {
+        button:link, a:visited {
             background-color: #6495ED;
             color: white;
             padding: 16px 30px;
@@ -66,28 +72,33 @@
         a:hover, a:active {
             background-color: #6495ED;
         }
-    </style>
 
+
+    </style>
 
 </head>
 <body>
-
-    <div class="container">
-        <form id="form-entry" class="form-signin" method="post" action="EntryNewUserController">
-            <%--@declare id="inputemail"--%><%--@declare id="inputpassword"--%>
-                <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-                <button id="submitEntryForm" onclick="entrySubmit();" onclick='location.href="http://localhost:8080/services/HomePageController"'>Sign in</button>
-                <a href="http://localhost:8080/services/RegistrationPageController" target="">Registration</a>
-         </form>
+<div class="container">
+    <form id="form-registration" class="form-signin" method="post" action="RegistrationNewUserController">
+        <%--@declare id="inputname"--%>
+            <%--@declare id="inputpasswordagain"--%><h2 class="form-signin-heading">Registration</h2>
+        <label for="inputName" class="sr-only">Name</label>
+            <input type="name" id="inputName" class="form-control" placeholder="Name" name="name" autofocus>
+        <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" >
+        <label for="inputPasswordAgain" class="sr-only">Password again</label>
+            <input type="password" id="inputPasswordAgain" class="form-control" placeholder="PasswordAgain">
+            <br>
+            <button id="submitRegistrationForm" onclick="registrationSubmit();">Registration</button>
         <script>
-            function entrySubmit() {
-                $("#form-entry").submit();
+            function registrationSubmit() {
+                $("#form-registration").submit();
             }
+
         </script>
-    </div>
+    </form>
+</div>
 </body>
 </html>
