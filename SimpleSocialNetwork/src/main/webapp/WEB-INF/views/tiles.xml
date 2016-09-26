@@ -24,7 +24,7 @@
     <!-- Base Definition -->
     <definition name="base-definition"
         template="/WEB-INF/views/tiles/templates/base-definition.jsp"><!--base-defenition-->
-        <put-attribute name="content" value=""/>
+        <!--<put-attribute name="content" value=""/>-->
     </definition>
 
     <!-- Home Page -->

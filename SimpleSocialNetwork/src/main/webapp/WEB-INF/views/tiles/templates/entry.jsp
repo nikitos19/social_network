@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!doctype html>
 
 <html>
@@ -28,7 +28,8 @@
             padding: 15px;
             margin: 0 auto;
         }
-        .form-signin .form-signin-heading,.form-signin  {
+
+        .form-signin .form-signin-heading, .form-signin {
             margin-bottom: 10px;
         }
 
@@ -41,19 +42,23 @@
             padding: 10px;
             font-size: 16px;
         }
+
         .form-signin .form-control:focus {
             z-index: 2;
         }
+
         .form-signin input[type="email"] {
             margin-bottom: -1px;
             border-bottom-right-radius: 0;
             border-bottom-left-radius: 0;
         }
+
         .form-signin input[type="password"] {
             margin-bottom: 10px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+
         a:link, a:visited {
             background-color: #6495ED;
             color: white;
@@ -72,22 +77,26 @@
 </head>
 <body>
 
-    <div class="container">
-        <form id="form-entry" class="form-signin" method="post" action="EntryNewUserController">
-            <%--@declare id="inputemail"--%><%--@declare id="inputpassword"--%>
-                <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-                <button id="submitEntryForm" onclick="entrySubmit();" onclick='location.href="http://localhost:8080/services/HomePageController"'>Sign in</button>
-                <a href="http://localhost:8080/services/RegistrationPageController" target="">Registration</a>
-         </form>
-        <script>
-            function entrySubmit() {
-                $("#form-entry").submit();
-            }
-        </script>
-    </div>
+<div class="container">
+    <form id="form-entry" class="form-signin" method="post" action="EntryPageController">
+        <%--@declare id="inputemail"--%><%--@declare id="inputpassword"--%>
+        <c:if test="${error ne null}">
+            <h2 class="form-signin-heading">Error${error}</h2>
+        </c:if>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+        <button id="submitEntryForm" onclick="entrySubmit();">Sign in</button>
+        <a href="RegistrationPageController" target="">Registration</a>
+    </form>
+    <script>
+        function entrySubmit() {
+            $("#form-entry").submit();
+        }
+    </script>
+</div>
 </body>
 </html>
