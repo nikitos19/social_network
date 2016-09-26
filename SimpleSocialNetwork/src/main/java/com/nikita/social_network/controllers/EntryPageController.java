@@ -1,5 +1,6 @@
 package com.nikita.social_network.controllers;
 
+import com.nikita.social_network.ConnectionProvider;
 import com.nikita.social_network.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 @Controller
@@ -32,6 +35,14 @@ public class EntryPageController {
         user.setEmail(email);
         user.setName("DonaldDuck");
         req.getSession().setAttribute("user", user);
+
+//        try {
+//            Connection con = ConnectionProvider.getConnection();
+//            con.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
         return result;
     }
 

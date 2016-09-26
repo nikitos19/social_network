@@ -119,7 +119,7 @@
                 </li>
                 <li><a href="">Search friends</a>
                 </li>
-                <li><a href="http://localhost:8080/services/EntryPageController">Exit</a>
+                <li><a href="/services/EntryPageController">Exit</a>
                 </li>
             </ul>
         </div>

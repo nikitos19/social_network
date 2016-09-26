@@ -78,7 +78,7 @@
 <body>
 
 <div class="container">
-    <form id="form-entry" class="form-signin" method="post" action="EntryPageController">
+    <form id="form-entry" class="form-signin" method="post" action="/services/EntryPageController">
         <%--@declare id="inputemail"--%><%--@declare id="inputpassword"--%>
         <c:if test="${error ne null}">
             <h2 class="form-signin-heading">Error${error}</h2>
@@ -90,7 +90,7 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
         <button id="submitEntryForm" onclick="entrySubmit();">Sign in</button>
-        <a href="RegistrationPageController" target="">Registration</a>
+        <a href="/services/RegistrationPageController" target="">Registration</a>
     </form>
     <script>
         function entrySubmit() {
