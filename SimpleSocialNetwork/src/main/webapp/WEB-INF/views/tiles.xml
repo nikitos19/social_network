@@ -16,11 +16,6 @@
         <put-attribute name="content" value=""/>
     </definition>
 
-    <definition name="entry1"
-                template="/WEB-INF/views/tiles/templates/entry.jsp">
-        <put-attribute name="content" value=""/>
-    </definition>
-
     <!-- Base Definition -->
     <definition name="base-definition"
         template="/WEB-INF/views/tiles/templates/base-definition.jsp"><!--base-defenition-->

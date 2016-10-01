@@ -10,8 +10,9 @@ import java.sql.SQLException;
 public final class ConnectionProvider {
     private static final Logger log = LoggerFactory.getLogger(ConnectionProvider.class);
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/dating";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/dbSocialNetwork";
     private static BoneCPDataSource datasource;
+    private static ThreadLocal<Connection> connectionHolder = new ThreadLocal<>();
 
     static {
         try {
@@ -27,14 +28,23 @@ public final class ConnectionProvider {
         datasource.setAcquireIncrement(30);
 
         datasource.setUsername("root");
-        datasource.setPassword("mysql");
+        datasource.setPassword("");
         datasource.setDefaultAutoCommit(false);
     }
 
     public static Connection getConnection() throws SQLException {
-        Connection con = datasource.getConnection();
-        con.setAutoCommit(false);
-        return con;
+        Connection c = connectionHolder.get();
+        if (c == null) {
+            c = datasource.getConnection();
+            c.setAutoCommit(false);
+            connectionHolder.set(c);
+        }
+        return c;
     }
 
+    public static void closeConnection() throws SQLException {
+        Connection c = connectionHolder.get();
+        if (c != null) connectionHolder.remove();
+        if (c != null && !c.isClosed()) c.close();
+    }
 }

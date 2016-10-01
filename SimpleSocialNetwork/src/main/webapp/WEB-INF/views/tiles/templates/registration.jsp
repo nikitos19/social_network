@@ -79,7 +79,7 @@
 </head>
 <body>
 <div class="container">
-    <form id="form-registration" class="form-signin" method="post" action="/services/RegistrationNewUserController">
+    <form id="form-registration" class="form-signin" method="post" action="/services/RegistrationPageController">
         <%--@declare id="inputname"--%>
             <%--@declare id="inputpasswordagain"--%><h2 class="form-signin-heading">Registration</h2>
         <label for="inputName" class="sr-only">Name</label>
