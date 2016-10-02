@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 
 <html>
@@ -81,7 +82,10 @@
     <form id="form-entry" class="form-signin" method="post" action="/services/EntryPageController">
         <%--@declare id="inputemail"--%><%--@declare id="inputpassword"--%>
         <c:if test="${error ne null}">
-            <h2 class="form-signin-heading">Error${error}</h2>
+            <h2 class="form-signin-heading">Error:${error}</h2>
+        </c:if>
+        <c:if test="${param.good ne null}">
+            <h2 class="form-signin-heading">${param.good}</h2>
         </c:if>
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>

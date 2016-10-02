@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 
 <html>
@@ -71,16 +72,6 @@
             left: 0;
             text-align: center;
         }
-        #ul1 {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            width: 15%;
-            background-color: #f1f1f1;
-            height: 83%; /* Full height */
-            position: absolute; /* Make it stick, even on scroll */
-            overflow: auto; /* Enable scrolling if the sidenav has too much content */
-        }
         li a {
             display: block;
             color: #000;
@@ -98,7 +89,7 @@
             color: white;
         }
         #content {
-            margin-left: 120px; /* Отступ слева */
+            margin-left: 20px; /* Отступ слева */
             padding: 0px; /* Поля вокруг текста */
             background: #fff; /* Цвет фона правой колонки */
         }
@@ -115,21 +106,19 @@
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="">Home</a>
+                <li><a href="/services/HomePageController">Home</a>
                 </li>
-                <li><a href="">Search friends</a>
+                <li><a href="/services/SearchFriendsController">Search friends</a>
+                </li>
+                <li><a href="">Friends</a>
+                </li>
+                <li><a href="">Chat</a>
                 </li>
                 <li><a href="/services/EntryPageController">Exit</a>
                 </li>
             </ul>
         </div>
     </div>
-</div>
-
-<div id="ul1">
-    <li><a class="active" href="">My page</a></li>
-    <li><a href="">Friends</a></li>
-    <li><a href="">Chat</a></li>
 </div>
 
 <div id="content">
