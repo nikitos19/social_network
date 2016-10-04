@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class UserDAO {
@@ -64,5 +67,25 @@ public class UserDAO {
         }else {
             throw new UserAlreadyExisted();
         }
+    }
+
+    public List<User> searchUsers(String filter) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String selectSQL = "select * from users where name LIKE ? or email LIKE ?";
+        List<User> users = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)){
+            preparedStatement.setString(1,"%" + filter + "%");
+            preparedStatement.setString(2,"%" + filter + "%");
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                while(resultSet.next()){
+                    User u = new User();
+                    u.setName(resultSet.getString("name"));
+                    u.setEmail(resultSet.getString("email"));
+                    u.setPassword(resultSet.getString("password"));
+                    users.add(u);
+                }
+            }
+        }
+        return users;
     }
 }

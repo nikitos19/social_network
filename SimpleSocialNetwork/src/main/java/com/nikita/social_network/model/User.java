@@ -1,6 +1,6 @@
 package com.nikita.social_network.model;
 
-import java.util.Date;
+import java.util.*;
 
 public class User {
     private String email;
@@ -31,12 +31,11 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
+    public String toString(String name) {
         return "User{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + this.name + '\'' +
                 '}';
     }
 }

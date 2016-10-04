@@ -7,12 +7,21 @@
         <button>Search</button>
     </form>
 
-    <!--
-    <c:forEach items="${usersResult}" var="u">
-        <tr>
-            <td>${u.name}</td>
-            <td>${u.email}</td>
-         </tr>
-    </c:forEach>
-    -->
+    <c:if test="${not empty users}">
+        <table style="width:100%; border: 1px solid black">
+            <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>Add friend</th>
+            </tr>
+            <c:forEach items="${users}" var="u">
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td><a href="">add</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+
 </div>
