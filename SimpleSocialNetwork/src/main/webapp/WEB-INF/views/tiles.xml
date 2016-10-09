@@ -31,4 +31,8 @@
         <put-attribute name="content" value="/WEB-INF/views/tiles/templates/search_friends.jsp"/>
     </definition>
 
+    <definition name="friends" extends="base-definition">
+        <put-attribute name="content" value="/WEB-INF/views/tiles/templates/friends.jsp"/>
+    </definition>
+
 </tiles-definitions>

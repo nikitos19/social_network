@@ -110,7 +110,7 @@
                 </li>
                 <li><a href="/services/SearchFriendsController">Search friends</a>
                 </li>
-                <li><a href="">Friends</a>
+                <li><a href="/services/FriendsPageController">Friends</a>
                 </li>
                 <li><a href="">Chat</a>
                 </li>

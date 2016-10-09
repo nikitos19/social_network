@@ -64,7 +64,7 @@ public class UserDAO {
                 preparedStatement.setString(3, password);
                 int resultSet = preparedStatement.executeUpdate();
             }
-        }else {
+        } else {
             throw new UserAlreadyExisted();
         }
     }
@@ -73,15 +73,46 @@ public class UserDAO {
         Connection connection = ConnectionProvider.getConnection();
         String selectSQL = "select * from users where name LIKE ? or email LIKE ?";
         List<User> users = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)){
-            preparedStatement.setString(1,"%" + filter + "%");
-            preparedStatement.setString(2,"%" + filter + "%");
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
-                while(resultSet.next()){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            preparedStatement.setString(1, "%" + filter + "%");
+            preparedStatement.setString(2, "%" + filter + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
                     User u = new User();
                     u.setName(resultSet.getString("name"));
                     u.setEmail(resultSet.getString("email"));
                     u.setPassword(resultSet.getString("password"));
+                    users.add(u);
+                }
+            }
+        }
+        return users;
+    }
+
+    public void addFriend(String email1, String email2) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String insertSQL = "insert into friends(email1,email2) values(?,?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+            preparedStatement.setString(1, email1);
+            preparedStatement.setString(2, email2);
+            int resultSet = preparedStatement.executeUpdate();
+        }
+    }
+
+    public List<User> searchFriends(String currentUserEmail, String filter) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String selectSQL = "SELECT u.name, f.email2 FROM friends f JOIN users u ON " +
+                "u.email = f.email2 WHERE f.email1 = ? AND (f.email2 LIKE ? OR u.name LIKE ?)";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            preparedStatement.setString(1, currentUserEmail);
+            preparedStatement.setString(2, "%" + filter + "%");
+            preparedStatement.setString(3, "%" + filter + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User u = new User();
+                    u.setName(resultSet.getString("u.name"));
+                    u.setEmail(resultSet.getString("f.email2"));
                     users.add(u);
                 }
             }
