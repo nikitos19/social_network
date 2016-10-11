@@ -19,7 +19,7 @@
                 <tr>
                     <td>${u.name}</td>
                     <td>${u.email}</td>
-                    <td><a href="">write a message</a></td>
+                    <td><a href="/services/ChatPageController/chatWith?email=${u.email}">go to the chat</a></td>
                 </tr>
             </c:forEach>
         </table>

@@ -15,7 +15,7 @@
             <tr>
                 <th>name</th>
                 <th>email</th>
-                <th>Add friend</th>
+                <th>add friend</th>
             </tr>
 
             <c:forEach items="${users}" var="u">

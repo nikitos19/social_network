@@ -10,60 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Social network</title>
 
-    <link rel="stylesheet"
-          href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-    <link rel="stylesheet"
-          href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-
-    <script type="text/javascript"
-            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-    <script
-            src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
-
-        #custom-bootstrap-menu.navbar-default .navbar-brand {
-            color: rgba(119, 119, 119, 1);
-        }
-        #custom-bootstrap-menu.navbar-default {
-            font-size: 14px;
-            background-color: rgba(248, 248, 248, 1);
-            border-width: 1px;
-            border-radius: 4px;
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
-            color: rgba(119, 119, 119, 1);
-            background-color: rgba(248, 248, 248, 0);
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
-        #custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
-            color: rgba(51, 51, 51, 1);
-            background-color: rgba(248, 248, 248, 0);
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
-        #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
-        #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
-            color: rgba(85, 85, 85, 1);
-            background-color: rgba(231, 231, 231, 1);
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-toggle {
-            border-color: #ddd;
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
-        #custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
-            background-color: #ddd;
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
-            background-color: #888;
-        }
-        #custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
-        #custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
-            background-color: #888;
-        }
         .footer {
             border: solid 1px silver;
             position: fixed;
@@ -72,63 +23,41 @@
             left: 0;
             text-align: center;
         }
-        li a {
-            display: block;
-            color: #000;
-            padding: 8px 16px;
-            text-decoration: none;
-        }
 
-        li a.active {
-            background-color: #DCDCDC;
-            color: white;
-        }
-
-        li a:hover:not(.active) {
-            background-color: #DCDCDC;
-            color: white;
-        }
-        #content {
-            margin-left: 20px; /* Отступ слева */
+        #content1 {
+            margin-left: 30px; /* Отступ слева */
+            margin-top: 70px;
             padding: 0px; /* Поля вокруг текста */
             background: #fff; /* Цвет фона правой колонки */
         }
 
     </style>
 </head>
-<body>
+<body style="height:1500px">
 
-<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="#">Social network</a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/services/HomePageController">Social network</a>
         </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="/services/HomePageController">Home</a>
-                </li>
-                <li><a href="/services/SearchFriendsController">Search friends</a>
-                </li>
-                <li><a href="/services/FriendsPageController">Friends</a>
-                </li>
-                <li><a href="">Chat</a>
-                </li>
-                <li><a href="/services/EntryPageController">Exit</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/services/HomePageController">Home</a></li>
+            <li class="${content == 'search_friends' ? 'active' : ""}"><a href="/services/SearchFriendsController">Search friends</a></li>
+            <li><a href="/services/FriendsPageController">Friends</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/services/EntryPageController">Exit</a></li>
+        </ul>
     </div>
-</div>
+</nav>
 
-<div id="content">
+<div id="content1">
     <tiles:insertAttribute name="content"/>
 </div>
 
 <div class="footer">
     <%@ page language="java" contentType="text/html; charset=UTF-8"
              pageEncoding="UTF-8"%>
-
     &copy; Nikitos
 </div>
 

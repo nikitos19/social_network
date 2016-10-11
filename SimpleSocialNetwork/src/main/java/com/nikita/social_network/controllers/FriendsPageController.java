@@ -1,5 +1,6 @@
 package com.nikita.social_network.controllers;
 
+import com.nikita.social_network.ConnectionProvider;
 import com.nikita.social_network.dao.UserDAO;
 import com.nikita.social_network.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

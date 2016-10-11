@@ -39,7 +39,6 @@ public class SearchFriendsController {
             List<User> usersResult = getUsersForFilter(null);
             result.addObject("users", usersResult);
             if (currentUser.getEmail().equalsIgnoreCase(email)) {
-
                 result.addObject("error", "you trying to add to friends yourself");
                 return result;
             } else {

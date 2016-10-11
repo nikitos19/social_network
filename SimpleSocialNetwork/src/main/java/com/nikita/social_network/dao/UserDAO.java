@@ -2,15 +2,13 @@ package com.nikita.social_network.dao;
 
 import com.nikita.social_network.ConnectionProvider;
 import com.nikita.social_network.exceptions.UserAlreadyExisted;
+import com.nikita.social_network.model.Message;
 import com.nikita.social_network.model.User;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -118,5 +116,36 @@ public class UserDAO {
             }
         }
         return users;
+    }
+
+    public List<Message> getAllMessage(String sender, String recipient) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String selectSQL = "SELECT c.* FROM chat c WHERE c.sender = ? AND c.recipient = ? ORDER BY c.sendTime";
+        List<Message> messages = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            preparedStatement.setString(1, sender);
+            preparedStatement.setString(2, recipient);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                Message message = new Message();
+                message.setSender(resultSet.getString("email1"));
+                message.setRecipient(resultSet.getString("email2"));
+                message.setSendTime(resultSet.getDate("currentDate"));
+                message.setMessage(resultSet.getString("message"));
+                messages.add(message);
+            }
+        }
+        return messages;
+    }
+
+    public void addMessage(String currentUser, String recipient,String message) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String insertSQL = "INSERT INTO chat(sender,recipient,sendTime,message) VALUES(?,?,?,?)";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)){
+            preparedStatement.setString(1,currentUser);
+            preparedStatement.setString(2,recipient);
+            preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setString(4,message);
+            int resultSet = preparedStatement.executeUpdate();
+        }
     }
 }
