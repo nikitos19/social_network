@@ -12,6 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -39,14 +43,27 @@ public class EntryPageController {
 //    }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView entrySubmit(@RequestParam String email, @RequestParam String password, HttpServletRequest req) throws SQLException {
+    public ModelAndView entrySubmit(@RequestParam String email, @RequestParam String password, HttpServletRequest req) throws SQLException, UnsupportedEncodingException {
         //        req.getParameter("email");
-
-        User u = dao.getUser(email, password);
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            ModelAndView result = new ModelAndView("entry");
+            result.addObject("error", "Something bad happen. Please write to administrator of this resource");
+            return result;
+        }
+        messageDigest.update(password.getBytes("UTF-8"));
+        byte[] digest = messageDigest.digest();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < digest.length; i++) {
+            sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        User u = dao.getUser(email, sb.toString());
         //если u=null,то пользователя с указанным email and passwjrd not exists,его нужно напрваить на эту же страничку с инфо об ерор.если u!=null то его надо положить в сессию и отправить redirect =homepagecontroller
         System.out.println(email + " " + password);
 
-        if (u==null) {
+        if (u == null) {
             ModelAndView result = new ModelAndView("entry");
             result.addObject("error", "User not found");
             return result;

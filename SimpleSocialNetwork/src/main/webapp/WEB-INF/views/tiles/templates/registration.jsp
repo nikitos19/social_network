@@ -108,7 +108,6 @@
             function registrationSubmit() {
                 $("#form-registration").submit();
             }
-
         </script>
     </form>
 </div>

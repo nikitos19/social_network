@@ -118,20 +118,24 @@ public class UserDAO {
         return users;
     }
 
-    public List<Message> getAllMessage(String sender, String recipient) throws SQLException {
+    public List<Message> getAllMessages(String sender, String recipient) throws SQLException {
         Connection connection = ConnectionProvider.getConnection();
-        String selectSQL = "SELECT c.* FROM chat c WHERE c.sender = ? AND c.recipient = ? ORDER BY c.sendTime";
+        String selectSQL = "SELECT c.* FROM chat c WHERE (c.sender = ? AND c.recipient = ?) OR (c.sender = ? AND c.recipient = ?)  ORDER BY c.sendTime";
         List<Message> messages = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, sender);
             preparedStatement.setString(2, recipient);
+            preparedStatement.setString(3, recipient);
+            preparedStatement.setString(4, sender);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                Message message = new Message();
-                message.setSender(resultSet.getString("email1"));
-                message.setRecipient(resultSet.getString("email2"));
-                message.setSendTime(resultSet.getDate("currentDate"));
-                message.setMessage(resultSet.getString("message"));
-                messages.add(message);
+                while (resultSet.next()){
+                    Message message = new Message();
+                    message.setSender(resultSet.getString("sender"));
+                    message.setRecipient(resultSet.getString("recipient"));
+                    message.setSendTime(resultSet.getTimestamp("sendTime"));
+                    message.setMessage(resultSet.getString("message"));
+                    messages.add(message);
+                }
             }
         }
         return messages;

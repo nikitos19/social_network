@@ -46,6 +46,7 @@
             <li><a href="/services/FriendsPageController">Friends</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-brand">${user.email}</li>
             <li><a href="/services/EntryPageController">Exit</a></li>
         </ul>
     </div>
