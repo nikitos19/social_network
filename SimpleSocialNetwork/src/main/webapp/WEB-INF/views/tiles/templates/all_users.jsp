@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <style>
     th,td{
         text-align: center;
@@ -7,12 +8,14 @@
     }
     tr:nth-child(even) {background-color: #f2f2f2}
 </style>
+
 <div id="content">
-    <form method="get" action="/services/SearchFriendsController">
+    <form method="get" action="/services/UsersPageController">
         <p>Search</p>
         <input name="filter" value="${filter ne null ? filter : ''}" type="text" size="50">
         <button>Search</button>
     </form>
+
     <c:if test="${error ne null}">
         <h2>Error:${error}</h2>
     </c:if>
@@ -22,17 +25,16 @@
             <tr>
                 <th>name</th>
                 <th>email</th>
-                <th>add friend</th>
+                <th>remove user</th>
             </tr>
 
             <c:forEach items="${users}" var="u">
                 <tr>
                     <td>${u.name}</td>
                     <td>${u.email}</td>
-                    <td><a href="/services/SearchFriendsController/addFriend?email=${u.email}">add</a></td>
+                    <td><a href="/services/UsersPageController/updateUser?email=${u.email}">remove</a></td>
                 </tr>
             </c:forEach>
         </table>
     </c:if>
-
 </div>

@@ -1,5 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+<style>
+    th,td{
+        text-align: center;
+        padding: 8px;
+    }
+    tr:nth-child(even) {background-color: #f2f2f2}
+</style>
+
 <div id="content">
     <form method="get" action="/services/SearchFriendsController">
         <p>Search</p>
@@ -8,7 +17,7 @@
     </form>
 
     <c:if test="${not empty users}">
-        <table style="width:100%; border: 1px solid black">
+        <table style="width:36%; border: 1px solid black">
             <tr>
                 <th>name</th>
                 <th>email</th>

@@ -63,7 +63,8 @@
         a:link, a:visited {
             background-color: #6495ED;
             color: white;
-            padding: 16px 30px;
+            font-size: 31px;
+
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -71,6 +72,14 @@
 
         a:hover, a:active {
             background-color: #6495ED;
+        }
+        .button1{
+            background-color: #6495ED;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            border: #6495ED;
         }
     </style>
 
@@ -93,7 +102,7 @@
                autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-        <button id="submitEntryForm" onclick="entrySubmit();">Sign in</button>
+        <button class="button1" id="submitEntryForm" onclick="entrySubmit();">Sign in</button>
         <a href="/services/RegistrationPageController" target="">Registration</a>
     </form>
     <script>

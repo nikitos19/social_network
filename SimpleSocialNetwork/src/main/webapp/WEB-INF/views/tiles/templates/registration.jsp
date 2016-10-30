@@ -18,8 +18,8 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 
-    <!--<script type="text/javascript"
-            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>-->
+    <script type="text/javascript"
+            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
     <script
             src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -80,7 +80,14 @@
             background-color: #6495ED;
         }
 
-
+        .button1{
+            background-color: #6495ED;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            border: #6495ED;
+        }
     </style>
 
 </head>
@@ -93,6 +100,7 @@
             <h2 class="form-signin-heading">${error}</h2>
         </c:if>
 
+
         <h2 class="form-signin-heading">Registration</h2>
         <label for="inputName" class="sr-only">Name</label>
         <input type="name" id="inputName" class="form-control" placeholder="Name" name="name" autofocus>
@@ -103,7 +111,7 @@
         <label for="inputPasswordAgain" class="sr-only">Password again</label>
         <input type="password" id="inputPasswordAgain" class="form-control" placeholder="PasswordAgain">
         <br>
-        <button id="submitRegistrationForm" onclick="registrationSubmit();">Registration</button>
+        <button class="button1" id="submitRegistrationForm" onclick="registrationSubmit();">Registration</button>
         <script>
             function registrationSubmit() {
                 $("#form-registration").submit();

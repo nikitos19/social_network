@@ -6,6 +6,8 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private String role;
+    private boolean deleted;
 
     public String getPassword() {
         return password;
@@ -31,11 +33,30 @@ public class User {
         this.email = email;
     }
 
-    public String toString(String name) {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    @Override
+    public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + this.name + '\'' +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }

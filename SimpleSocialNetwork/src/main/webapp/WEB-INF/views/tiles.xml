@@ -39,4 +39,8 @@
         <put-attribute name="content" value="/WEB-INF/views/tiles/templates/chat.jsp"/>
     </definition>
 
+    <definition name="all_users" extends="base-definition">
+        <put-attribute name="content" value="/WEB-INF/views/tiles/templates/all_users.jsp"/>
+    </definition>
+
 </tiles-definitions>

@@ -44,6 +44,9 @@
             <li><a href="/services/HomePageController">Home</a></li>
             <li class="${content == 'search_friends' ? 'active' : ""}"><a href="/services/SearchFriendsController">Search friends</a></li>
             <li><a href="/services/FriendsPageController">Friends</a></li>
+            <c:if test="${user.role=='admin'}">
+                <li><a href="/services/UsersPageController">Users</a></li>
+            </c:if>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="navbar-brand">${user.email}</li>

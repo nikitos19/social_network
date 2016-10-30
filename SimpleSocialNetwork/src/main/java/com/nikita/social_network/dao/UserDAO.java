@@ -16,7 +16,7 @@ public class UserDAO {
 
     public User getUser(String email, String password) throws SQLException {
         Connection c = ConnectionProvider.getConnection();
-        String selectSQL = "select u.* from users u where u.email = ? and u.password = ?";
+        String selectSQL = "select u.* from users u where (u.email = ? and u.password = ?) and u.deleted = FALSE";
         User user = null;
         try (PreparedStatement preparedStatement = c.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, email);
@@ -27,6 +27,8 @@ public class UserDAO {
                     user.setName(resultSet.getString("name"));
                     user.setEmail(resultSet.getString("email"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setRole(resultSet.getString("role"));
+                    user.setDeleted(resultSet.getBoolean("deleted"));
                 }
             }
         }
@@ -45,6 +47,8 @@ public class UserDAO {
                     user.setName(resultSet.getString("name"));
                     user.setEmail(resultSet.getString("email"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setRole(resultSet.getString("role"));
+                    user.setDeleted(resultSet.getBoolean("deleted"));
                 }
             }
         }
@@ -69,7 +73,7 @@ public class UserDAO {
 
     public List<User> searchUsers(String filter) throws SQLException {
         Connection connection = ConnectionProvider.getConnection();
-        String selectSQL = "select * from users where name LIKE ? or email LIKE ?";
+        String selectSQL = "select * from users where (name LIKE ? or email LIKE ?) and deleted=FALSE";
         List<User> users = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, "%" + filter + "%");
@@ -80,6 +84,8 @@ public class UserDAO {
                     u.setName(resultSet.getString("name"));
                     u.setEmail(resultSet.getString("email"));
                     u.setPassword(resultSet.getString("password"));
+                    u.setRole(resultSet.getString("role"));
+                    u.setDeleted(resultSet.getBoolean("deleted"));
                     users.add(u);
                 }
             }
@@ -97,10 +103,19 @@ public class UserDAO {
         }
     }
 
+    public void updateUser(String email) throws SQLException {
+        Connection connection = ConnectionProvider.getConnection();
+        String insertSQL = "UPDATE users SET deleted = TRUE WHERE email=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+            preparedStatement.setString(1, email);
+            int resultSet = preparedStatement.executeUpdate();
+        }
+    }
+
     public List<User> searchFriends(String currentUserEmail, String filter) throws SQLException {
         Connection connection = ConnectionProvider.getConnection();
         String selectSQL = "SELECT u.name, f.email2 FROM friends f JOIN users u ON " +
-                "u.email = f.email2 WHERE f.email1 = ? AND (f.email2 LIKE ? OR u.name LIKE ?)";
+                "u.email = f.email2 WHERE f.email1 = ? AND (f.email2 LIKE ? OR u.name LIKE ?) AND u.deleted = FALSE";
         List<User> users = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, currentUserEmail);

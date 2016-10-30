@@ -31,20 +31,9 @@ public class EntryPageController {
         ModelAndView result = new ModelAndView("entry");
         return result;
     }
-    //TestServlet/m1
-//    public void m1(){}
-//    //TestServlet/m2
-//    public void m2(){}
-//
-//    public void doPost(HttpServletRequest req, HttpServletResponse res){
-//        req.getRequestURL();// localhost:8080//TestServlet/m1
-//
-//        req.setAttribute("user", new Object());
-//    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView entrySubmit(@RequestParam String email, @RequestParam String password, HttpServletRequest req) throws SQLException, UnsupportedEncodingException {
-        //        req.getParameter("email");
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
@@ -60,7 +49,6 @@ public class EntryPageController {
             sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
         }
         User u = dao.getUser(email, sb.toString());
-        //если u=null,то пользователя с указанным email and passwjrd not exists,его нужно напрваить на эту же страничку с инфо об ерор.если u!=null то его надо положить в сессию и отправить redirect =homepagecontroller
         System.out.println(email + " " + password);
 
         if (u == null) {
