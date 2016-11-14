@@ -18,6 +18,7 @@ public class UserDAO {
         Connection c = ConnectionProvider.getConnection();
         String selectSQL = "select u.* from users u where (u.email = ? and u.password = ?) and u.deleted = FALSE";
         User user = null;
+        Blob blob = null;
         try (PreparedStatement preparedStatement = c.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -29,16 +30,37 @@ public class UserDAO {
                     user.setPassword(resultSet.getString("password"));
                     user.setRole(resultSet.getString("role"));
                     user.setDeleted(resultSet.getBoolean("deleted"));
+                    blob = resultSet.getBlob("photo");
+                    if (blob != null) {
+                        user.setPhoto(blob.getBytes(1, (int) blob.length()));
+                    }
                 }
             }
         }
         return user;
     }
 
+    public void setAvatar(byte[] bytes,String email) throws SQLException {
+        Connection c = ConnectionProvider.getConnection();
+        String sql = "UPDATE users SET photo = ? WHERE email = ?";
+        try(PreparedStatement preparedStatement = c.prepareStatement(sql)){
+            if(bytes!=null){
+
+                preparedStatement.setBytes(1,bytes);
+            }
+            else{
+                preparedStatement.setNull(1,java.sql.Types.BLOB);
+            }
+            preparedStatement.setString(2,email);
+            int resultSet = preparedStatement.executeUpdate();
+        }
+    }
+
     public User getUser(String email) throws SQLException {
         Connection c = ConnectionProvider.getConnection();
         String selectSQL = "select u.* from users u where u.email = ?";
         User user = null;
+        Blob blob = null;
         try (PreparedStatement preparedStatement = c.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -49,6 +71,10 @@ public class UserDAO {
                     user.setPassword(resultSet.getString("password"));
                     user.setRole(resultSet.getString("role"));
                     user.setDeleted(resultSet.getBoolean("deleted"));
+                    blob = resultSet.getBlob("photo");
+                    if (blob != null) {
+                        user.setPhoto(blob.getBytes(1, (int) blob.length()));
+                    }
                 }
             }
         }
@@ -75,6 +101,7 @@ public class UserDAO {
         Connection connection = ConnectionProvider.getConnection();
         String selectSQL = "select * from users where (name LIKE ? or email LIKE ?) and deleted=FALSE";
         List<User> users = new ArrayList<>();
+        Blob blob = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
             preparedStatement.setString(1, "%" + filter + "%");
             preparedStatement.setString(2, "%" + filter + "%");
@@ -86,6 +113,10 @@ public class UserDAO {
                     u.setPassword(resultSet.getString("password"));
                     u.setRole(resultSet.getString("role"));
                     u.setDeleted(resultSet.getBoolean("deleted"));
+                    blob = resultSet.getBlob("photo");
+                    if(blob!=null){
+                        u.setPhoto(blob.getBytes(1, (int) blob.length()));
+                    }
                     users.add(u);
                 }
             }
@@ -143,7 +174,7 @@ public class UserDAO {
             preparedStatement.setString(3, recipient);
             preparedStatement.setString(4, sender);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     Message message = new Message();
                     message.setSender(resultSet.getString("sender"));
                     message.setRecipient(resultSet.getString("recipient"));
@@ -156,14 +187,14 @@ public class UserDAO {
         return messages;
     }
 
-    public void addMessage(String currentUser, String recipient,String message) throws SQLException {
+    public void addMessage(String currentUser, String recipient, String message) throws SQLException {
         Connection connection = ConnectionProvider.getConnection();
         String insertSQL = "INSERT INTO chat(sender,recipient,sendTime,message) VALUES(?,?,?,?)";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)){
-            preparedStatement.setString(1,currentUser);
-            preparedStatement.setString(2,recipient);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+            preparedStatement.setString(1, currentUser);
+            preparedStatement.setString(2, recipient);
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            preparedStatement.setString(4,message);
+            preparedStatement.setString(4, message);
             int resultSet = preparedStatement.executeUpdate();
         }
     }

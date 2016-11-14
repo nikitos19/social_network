@@ -8,6 +8,7 @@ public class User {
     private String name;
     private String role;
     private boolean deleted;
+    private byte[] photo;
 
     public String getPassword() {
         return password;
@@ -49,6 +50,14 @@ public class User {
         return deleted;
     }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -57,6 +66,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 ", deleted=" + deleted +
+                ", photo=" + Arrays.toString(photo) +
                 '}';
     }
 }

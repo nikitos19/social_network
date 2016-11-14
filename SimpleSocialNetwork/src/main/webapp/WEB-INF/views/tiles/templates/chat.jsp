@@ -14,7 +14,7 @@
 <div id="content" align="center">
     <h2>Chat with ${recipient}</h2>
 
-    <div class="div1" id="mydiv"">
+    <div class="div1" id="mydiv">
         <c:forEach items="${messages}" var="m">
             <div style="color: ${m.sender eq recipient ? 'black' : 'blue'}">
                 <c:if test="${lastAuthor eq null or lastAuthor ne m.sender}">

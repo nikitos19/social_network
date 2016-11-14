@@ -1,6 +1,5 @@
 package com.nikita.social_network.controllers;
 
-import com.nikita.social_network.ConnectionProvider;
 import com.nikita.social_network.dao.UserDAO;
 import com.nikita.social_network.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 
 @Controller
 @RequestMapping(value = "EntryPageController")
 public class EntryPageController {
+
     @Autowired
     private UserDAO dao;
 
@@ -48,6 +45,7 @@ public class EntryPageController {
         for (int i = 0; i < digest.length; i++) {
             sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
         }
+
         User u = dao.getUser(email, sb.toString());
         System.out.println(email + " " + password);
 
