@@ -1,6 +1,7 @@
 package com.nikita.social_network.controllers;
 
 import com.nikita.social_network.ConnectionProvider;
+import com.nikita.social_network.dao.MessagesDAO;
 import com.nikita.social_network.dao.UserDAO;
 import com.nikita.social_network.model.Message;
 import com.nikita.social_network.model.User;
@@ -21,7 +22,7 @@ import java.util.List;
 public class ChatPageController {
 
     @Autowired
-    private UserDAO dao;
+    private MessagesDAO dao;
 
     @RequestMapping(value = "chatWith", method = RequestMethod.GET)
     public ModelAndView chatWith(@RequestParam String recipient, HttpSession session) throws SQLException {
